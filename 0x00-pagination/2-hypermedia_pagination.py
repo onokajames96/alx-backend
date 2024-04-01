@@ -61,6 +61,5 @@ class Server:
                 "prev_page": prev_page, "total_pages": total_pages
                 }
 
-
 if __name__ == "__main__":
     server = Server()
