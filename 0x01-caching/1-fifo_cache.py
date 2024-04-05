@@ -11,7 +11,7 @@ class FIFOCache(BaseCaching):
     def __init__(self):
         """Initialization"""
         super().__init__()
-        self.queue = []
+        self.keys_queue = []
 
     def put(self, key, item):
         """Assign to dict"""
