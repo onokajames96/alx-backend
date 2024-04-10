@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """Flask"""
-from flask import Flask
-from flask import render_template
+from flask import Flask, render_template
 from flask import request
 from flask_babel import Babel
+
+app = Flask(__name__)
+babel = Babel(app)
 
 
 class Config(object):
@@ -15,11 +17,11 @@ class Config(object):
     BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
-app = Flask(__name__)
+#app = Flask(__name__)
 app.config.from_object(Config)
 
 
-babel = Babel(app)
+#babel = Babel(app)
 
 
 @babel.localeselector
@@ -33,7 +35,7 @@ def get_locale() -> str:
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
-@app.route('/', strict_slashes=False)
+@app.route('/')
 def index() -> str:
     """
     Rendering the templates
