@@ -5,7 +5,6 @@ from flask_babel import Babel, _
 
 
 app = Flask(__name__)
-babel = Babel(app)
 
 users = {
     1: {"name": "Balou", "locale": "fr", "timezone": "Europe/Paris"},
@@ -23,6 +22,7 @@ class Config(object):
 
 
 app.config.from_object(Config)
+babel = Babel(app)
 
 
 def get_locale():
