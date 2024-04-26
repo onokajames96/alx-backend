@@ -19,13 +19,10 @@ class FIFOCache(BaseCaching):
         """Add an item to the cache."""
         if key is None or item is None:
             return
-        if key in self.cache_data:
-            self.cache_data[key] = item
-        else:
+        if key not in self.cache_data:
             if len(self.cache_data) >= self.MAX_ITEMS:
                 oldest_key = self.keys_queue.pop(0)
                 del self.cache_data[oldest_key]
-
             self.cache_data[key] = item
             self.keys_queue.append(key)
 
