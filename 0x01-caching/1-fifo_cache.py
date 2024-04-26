@@ -6,15 +6,17 @@ from base_caching import BaseCaching
 
 
 class FIFOCache(BaseCaching):
-    """Class FIFOCache"""
+    """
+    Class implementing a FIFO (First-In, First-Out) cache.
+    """
 
     def __init__(self):
-        """Initialization"""
+        """Initialize the FIFO cache."""
         super().__init__()
         self.keys_queue = []
 
     def put(self, key, item):
-        """Assign to dict"""
+        """Add an item to the cache."""
         if key and item:
             if key in self.cache_data:
                 self.cache_data[key] = item
@@ -22,5 +24,5 @@ class FIFOCache(BaseCaching):
                 self._push(key, item)
 
     def get(self, key):
-        """Gets data"""
+        """Retrieve an item from the cache."""
         return self.cache_data.get(key, None)
