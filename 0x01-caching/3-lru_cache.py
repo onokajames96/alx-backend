@@ -1,33 +1,33 @@
 #!/usr/bin/python3
-"""LRU"""
+"""module handling LRU"""
 from base_caching import BaseCaching
+from collections import OrderedDict
 
 
 class LRUCache(BaseCaching):
-    """Class Module LRUCache"""
+    """Class implementing a Least Recently Used (LRU) cache."""
 
     def __init__(self):
-        """ Initialization"""
+        """ Initialize the LRU cache."""
         super().__init__()
         self.lru_order = OrderedDict()
 
     def put(self, key, item):
-        """put function"""
-        if key and item:
-            self.lru_order[key] = item
-            self.lru_order.move_to_end(key)
-            self.cache_data[key] = item
+        """Add an item to the cache."""
+        if key is None or key not in self.cache_data:
+            return
 
-        if len(self.cache_data) > BaseCaching.MAX_ITEMS:
-            item_discarded = next(iter(self.lru_order))
-            del self.cache_data[item_discarded]
-            print("DISCARD:", item_discarded)
+        self.cache_data[key] = item
+        self.lru_order[key] = item
+        self.lru_order.move_to_end(key)
 
-        if len(self.lru_order) > BaseCaching.MAX_ITEMS:
-            self.lru_order.popitem(last=False)
+        if len(self.cache_data) > self.MAX_ITEMS:
+            discarded_key, _ = self.lru_order.popitem(last=False)
+            del self.cache_data[discarded_key]
+            print("DISCARD:", discarded_key)
 
     def get(self, key):
-        """geting the caches"""
+        """Retrieve an item from the cach"""
         if key in self.cache_data:
             self.lru_order.move_to_end(key)
             return self.cache_data[key]
